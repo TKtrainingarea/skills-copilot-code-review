@@ -141,7 +141,7 @@ section h3 {
   }
 }
 
-#activities-list {
+#activities-lists {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 15px;
@@ -663,12 +663,12 @@ footer {
 
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
 
-  .announcement-banner {
+.announcement-banner {
   background-color: #4caf50;
   color: white;
   text-align: center;
   padding: 15px;
-  font-weight: bold
-
+  font-weight: bold;
 }
