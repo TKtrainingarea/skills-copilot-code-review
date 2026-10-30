@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentUser = JSON.parse(savedUser);
         updateAuthUI();
         // Verify the stored user with the server
-        validateUserSession(currentUser.username);
+        validateUserSession(currentUser.username, currentUser.session_token);
       } catch (error) {
         console.error("Error parsing saved user", error);
         logout(); // Clear invalid data
@@ -118,10 +118,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Validate user session with the server
-  async function validateUserSession(username) {
+  async function validateUserSession(username, sessionToken) {
     try {
       const response = await fetch(
-        `/auth/check-session?username=${encodeURIComponent(username)}`
+        `/auth/check-session?username=${encodeURIComponent(
+          username
+        )}&session_token=${encodeURIComponent(sessionToken || "")}`
       );
 
       if (!response.ok) {
@@ -776,7 +778,11 @@ document.addEventListener("DOMContentLoaded", () => {
               activity
             )}/unregister?email=${encodeURIComponent(
               email
-            )}&teacher_username=${encodeURIComponent(currentUser.username)}`,
+            )}&teacher_username=${encodeURIComponent(
+              currentUser.username
+            )}&teacher_session_token=${encodeURIComponent(
+              currentUser.session_token || ""
+            )}`,
             {
               method: "POST",
             }
@@ -833,7 +839,11 @@ document.addEventListener("DOMContentLoaded", () => {
           activity
         )}/signup?email=${encodeURIComponent(
           email
-        )}&teacher_username=${encodeURIComponent(currentUser.username)}`,
+        )}&teacher_username=${encodeURIComponent(
+          currentUser.username
+        )}&teacher_session_token=${encodeURIComponent(
+          currentUser.session_token || ""
+        )}`,
         {
           method: "POST",
         }

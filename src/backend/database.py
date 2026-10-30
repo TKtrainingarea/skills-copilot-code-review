@@ -2,6 +2,8 @@
 MongoDB database configuration and setup for Mergington High School API
 """
 
+import secrets
+
 from pymongo import MongoClient
 from argon2 import PasswordHasher, exceptions as argon2_exceptions
 
@@ -18,6 +20,11 @@ def hash_password(password):
     """Hash password using Argon2"""
     ph = PasswordHasher()
     return ph.hash(password)
+
+
+def generate_session_token() -> str:
+    """Create a random session token for an authenticated teacher."""
+    return secrets.token_urlsafe(32)
 
 
 def verify_password(hashed_password: str, plain_password: str) -> bool:
